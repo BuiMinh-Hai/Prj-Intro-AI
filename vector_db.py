@@ -102,7 +102,7 @@ def preprocess_dataset(dataset_name: str = DATASET_NAME) -> List[Document]:
     """
     logger.info(f"📥 Đang tải dataset: {dataset_name} ...")
     try:
-        ds = load_dataset(dataset_name, split="train")
+        ds = load_dataset(dataset_name, split="full")
     except Exception as e:
         logger.error(f"Không tải được dataset: {e}")
         raise
