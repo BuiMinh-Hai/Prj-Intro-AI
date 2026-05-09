@@ -113,19 +113,30 @@ def preprocess_dataset(dataset_name: str = DATASET_NAME) -> List[Document]:
     logger.info(f"✅ Tải thành công {len(ds)} mẫu. Bắt đầu chunking ...")
 
     for idx, row in enumerate(tqdm(ds, desc="Chunking")):
-        # Ghép question + answer thành context tư vấn
+        # Trích xuất dữ liệu từ nhiều tên cột phổ biến
         question = row.get("question", "") or row.get("input", "") or ""
         answer   = row.get("answer",   "") or row.get("output", "") or ""
-        context  = row.get("context",  "") or ""
+        context  = row.get("context",  "") or row.get("content", "") or row.get("text", "") or ""
+        title    = row.get("title",    "") or row.get("heading", "") or ""
 
-        # Ưu tiên context riêng, sau đó mới ghép QA
         full_text_parts = []
-        if context:
+        
+        # Lắp ghép nội dung
+        if title and context:
+            full_text_parts.append(f"{title}\n{context}")
+        elif context:
             full_text_parts.append(context)
+            
         if question and answer:
             full_text_parts.append(f"Câu hỏi: {question}\nTrả lời: {answer}")
         elif answer:
             full_text_parts.append(answer)
+            
+        # Nếu vẫn không có gì, lấy ngẫu nhiên các cột chứa text dài
+        if not full_text_parts:
+            for k, v in row.items():
+                if isinstance(v, str) and len(v.strip()) > 20:
+                    full_text_parts.append(v.strip())
 
         for part in full_text_parts:
             chunks = split_text_into_chunks(part)
