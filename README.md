@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # 🏥 MedBot — Chatbot Tư Vấn Y Khoa Tiếng Việt
 
 > Qwen2-7B + QLoRA Fine-tuning | ChromaDB RAG | Hybrid Search + Cross-Encoder Reranking
@@ -121,3 +122,6 @@ Người dùng
 - **RAM:** ≥ 32GB
 - **Disk:** ≥ 50GB (model + ChromaDB)
 - **Môi trường:** Python 3.10+, CUDA 11.8+
+=======
+# Prj-Intro-AI
+>>>>>>> 66a79f298848a37fa96e5459ff4335c074995036
