@@ -1,0 +1,30 @@
+# ── Core LLM & Fine-tuning ──────────────────────────────────────
+torch>=2.1.0
+transformers>=4.40.0
+peft>=0.10.0
+trl>=0.8.0
+bitsandbytes>=0.43.0
+accelerate>=0.27.0
+datasets>=2.18.0
+sentencepiece
+protobuf
+
+# ── Vector DB & Embeddings ──────────────────────────────────────
+chromadb>=0.4.24
+sentence-transformers>=2.6.0
+
+# ── RAG & Retrieval ─────────────────────────────────────────────
+# BM25 thuần Python (không cần cài thêm — đã viết trong retriever.py)
+numpy>=1.26.0
+scikit-learn>=1.4.0
+
+# ── Evaluation ──────────────────────────────────────────────────
+# rouge-score>=0.1.2  # Đã tắt tạm thời vì hay bị lỗi trên Windows (bạn không cần thư viện này)
+nltk>=3.8.1
+matplotlib>=3.8.0
+
+# ── Terminal UI ──────────────────────────────────────────────────
+rich>=13.7.0
+
+# ── Utilities ────────────────────────────────────────────────────
+tqdm>=4.66.0
