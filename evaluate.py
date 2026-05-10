@@ -30,7 +30,7 @@ logger = logging.getLogger(__name__)
 # ── Paths ──────────────────────────────────────────────────────
 RESULTS_DIR   = "./evaluation_results"
 TEST_SET_PATH = "./data/test_set.json"
-DATASET_NAME  = "urnus11/Vietnamese-Healthcare"
+DATASET_NAME  = "MedRAG/textbooks"
 NUM_TEST      = 80   # số ca test
 
 
@@ -53,6 +53,14 @@ def create_test_set(num_samples: int = NUM_TEST, force: bool = False) -> List[Di
     for row in ds:
         q = (row.get("question") or row.get("input") or "").strip()
         a = (row.get("answer")   or row.get("output") or "").strip()
+        
+        content = (row.get("content") or row.get("contents") or row.get("text") or "").strip()
+        title = (row.get("title") or "").strip()
+
+        if not q and not a and content:
+            q = f"Vui lòng cung cấp thông tin y khoa về: {title}" if title else "Trình bày thông tin y khoa."
+            a = content
+
         if len(q) > 30 and len(a) > 50:
             candidates.append({"question": q, "reference_answer": a})
 

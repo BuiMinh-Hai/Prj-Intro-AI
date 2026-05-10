@@ -37,7 +37,7 @@ BASE_MODEL_ID = "Qwen/Qwen2-7B-Instruct"   # Qwen2 tốt hơn Qwen1 cho tiếng 
 # ── Paths ──────────────────────────────────────────────────────
 MODEL_OUTPUT_DIR   = "./models/qwen7b-medical-qlora"
 LOGS_DIR           = "./models/logs"
-DATASET_NAME       = "urnus11/Vietnamese-Healthcare"
+DATASET_NAME       = "MedRAG/textbooks"
 FORMATTED_DATA_DIR = "./data/formatted"
 
 # ── QLoRA hyperparameters ───────────────────────────────────────
@@ -115,8 +115,19 @@ def preprocess_and_format_dataset(dataset_name: str = DATASET_NAME) -> Dataset:
         answer = (
             row.get("answer") or row.get("output") or row.get("response") or ""
         ).strip()
+        
+        content = (row.get("content") or row.get("contents") or row.get("text") or "").strip()
+        title = (row.get("title") or "").strip()
 
-        if not question or not answer:
+        # Xử lý trường hợp dataset chỉ có content (như MedRAG/textbooks)
+        if not question and not answer:
+            if content:
+                question = f"Vui lòng cung cấp thông tin y khoa về: {title}" if title else "Trình bày thông tin y khoa."
+                answer = content
+            else:
+                skipped += 1
+                continue
+        elif not question or not answer:
             skipped += 1
             continue
 

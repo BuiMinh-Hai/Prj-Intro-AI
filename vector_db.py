@@ -26,9 +26,9 @@ logger = logging.getLogger(__name__)
 
 # Thư mục lưu ChromaDB local
 CHROMA_DB_PATH = "./chroma_db"
-COLLECTION_NAME = "vietnamese_healthcare"
+COLLECTION_NAME = "medrag_textbooks"
 
-# Embedding model tốt nhất cho tiếng Việt
+# Embedding model tốt nhất cho tiếng Việt (vẫn dùng cho đa ngôn ngữ)
 EMBEDDING_MODEL_NAME = "keepitreal/vietnamese-sbert"
 
 # Tham số chunking
@@ -36,7 +36,7 @@ CHUNK_SIZE = 512          # tokens / ký tự tối đa mỗi đoạn
 CHUNK_OVERLAP = 64        # overlap để giữ ngữ cảnh
 BATCH_SIZE = 64           # kích thước batch khi upsert vào ChromaDB
 
-DATASET_NAME = "urnus11/Vietnamese-Healthcare"
+DATASET_NAME = "MedRAG/textbooks"
 
 
 # ─────────────────────────── Dataclass ───────────────────────────
@@ -102,7 +102,7 @@ def preprocess_dataset(dataset_name: str = DATASET_NAME) -> List[Document]:
     """
     logger.info(f"📥 Đang tải dataset: {dataset_name} ...")
     try:
-        ds = load_dataset(dataset_name, split="full")
+        ds = load_dataset(dataset_name, split="train")
     except Exception as e:
         logger.error(f"Không tải được dataset: {e}")
         raise
