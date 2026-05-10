@@ -102,7 +102,7 @@ def preprocess_and_format_dataset(dataset_name: str = DATASET_NAME) -> Dataset:
         return Dataset.load_from_disk(cache_path)
 
     logger.info(f"📥 Tải dataset gốc: {dataset_name}")
-    raw_ds = load_dataset(dataset_name, split="train")
+    raw_ds = load_dataset(dataset_name, split="train[:500]")  # Lấy 500 mẫu để test nhanh
     logger.info(f"✅ {len(raw_ds)} samples tải thành công.")
 
     formatted_samples: List[Dict[str, str]] = []

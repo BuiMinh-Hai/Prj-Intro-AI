@@ -46,7 +46,7 @@ def create_test_set(num_samples: int = NUM_TEST, force: bool = False) -> List[Di
         return data
 
     logger.info(f"📥 Tạo test set từ {DATASET_NAME} ...")
-    ds = load_dataset(DATASET_NAME, split="train")
+    ds = load_dataset(DATASET_NAME, split="train[:500]")  # Lấy 500 mẫu để test nhanh
 
     # Chọn các mẫu phức tạp (câu hỏi dài hơn)
     candidates = []
