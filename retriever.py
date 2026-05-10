@@ -339,9 +339,9 @@ if __name__ == "__main__":
     retriever = build_retriever(db)
 
     test_queries = [
-        "Triệu chứng của bệnh tiểu đường type 2 là gì?",
-        "Thuốc Metformin dùng để điều trị bệnh gì?",
-        "Cách xử lý khi bị ngộ độc thực phẩm tại nhà?",
+        "What is the function of the sacrum and coccyx?",
+        "How is extradural anesthesia performed?",
+        "What substances are used to attenuate X-rays to demonstrate specific structures?",
     ]
 
     for q in test_queries:

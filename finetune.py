@@ -122,7 +122,7 @@ def preprocess_and_format_dataset(dataset_name: str = DATASET_NAME) -> Dataset:
         # Xử lý trường hợp dataset chỉ có content (như MedRAG/textbooks)
         if not question and not answer:
             if content:
-                question = f"Vui lòng cung cấp thông tin y khoa về: {title}" if title else "Trình bày thông tin y khoa."
+                question = f"Please provide medical information about: {title}" if title else "Please provide medical information about this topic."
                 answer = content
             else:
                 skipped += 1

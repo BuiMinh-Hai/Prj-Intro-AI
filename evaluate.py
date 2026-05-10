@@ -58,7 +58,7 @@ def create_test_set(num_samples: int = NUM_TEST, force: bool = False) -> List[Di
         title = (row.get("title") or "").strip()
 
         if not q and not a and content:
-            q = f"Vui lòng cung cấp thông tin y khoa về: {title}" if title else "Trình bày thông tin y khoa."
+            q = f"Please provide medical information about: {title}" if title else "Please provide medical information about this topic."
             a = content
 
         if len(q) > 30 and len(a) > 50:
